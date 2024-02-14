@@ -12,7 +12,7 @@ Swagger(app)
 db_config = {
     'user': 'objura_user',
     'password': 'root',
-    'host': 'localhost',
+    'host': 'http://127.0.0.1:5000/',
     'database': 'objura-bdd'
 }
 
