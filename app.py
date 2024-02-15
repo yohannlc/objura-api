@@ -12,7 +12,7 @@ Swagger(app)
 db_config = {
     'user': 'objura_user',
     'password': 'root',
-    'host': 'http://127.0.0.1:5000/',
+    'host': 'localhost',
     'database': 'objura-bdd'
 }
 
@@ -713,6 +713,72 @@ def get_disparitions_of_a_house(house_id):
     conn.close()
 
     return jsonify(data)
+
+# Route to create a disparition
+@app.route('/api/v1/create_disparition', methods=['POST'])
+def create_disparition():
+    """
+    Create a new disparition
+
+    This endpoint creates a new disparition in the system.
+
+    ---
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            disparition_date:
+              type: string
+            disparition_object_stolen:
+              type: integer
+            disparition_image_overview:
+              type: string
+            disparition_object:
+              type: string
+            camera_id:
+              type: integer
+            room_id:
+              type: integer
+            video_id:
+              type: integer
+
+    responses:
+      200:
+        description: Disparition created successfully
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: Status message
+    """
+    
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    disparition_date = request.json['disparition_date']
+    disparition_object_stolen = request.json['disparition_object_stolen']
+    disparition_image_overview = request.json['disparition_image_overview']
+    disparition_object = request.json['disparition_object']
+    camera_id = request.json['camera_id']
+    room_id = request.json['room_id']
+    video_id = request.json['video_id']
+
+    cursor.execute('INSERT INTO disparition (disparition_date, disparition_object_stolen, disparition_image_overview, disparition_object, camera_id, room_id) VALUES (%s, %s, %s, %s, %s, %s)', (disparition_date, disparition_object_stolen, disparition_image_overview, disparition_object, camera_id, room_id))
+    conn.commit()
+
+    cursor.execute('INSERT INTO video (video_date, video_length, video_link, disparition_id) VALUES (%s, %s, %s, %s)', (disparition_date, '00:00:00', 'https://www.youtube.com', cursor.lastrowid))
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return jsonify({
+        'status': 'Disparition created successfully'
+    })
 
 if __name__ == '__main__':
     app.run(debug=True)
