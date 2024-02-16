@@ -10,10 +10,10 @@ CORS(app)
 Swagger(app)
 
 db_config = {
-    'user': 'objura_user',
-    'password': 'root',
-    'host': 'localhost',
-    'database': 'objura-bdd'
+    'user': 'yohann',
+    'password': '5haEjOOLeNUXgwqycjuj',
+    'host': '0.0.0.0',
+    'database': 'objura_bdd'
 }
 
 # Route to get all users
