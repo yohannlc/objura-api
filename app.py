@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-
+import os
 import mysql.connector
 from flask_cors import CORS
 from datetime import timedelta
@@ -11,8 +11,9 @@ Swagger(app)
 
 db_config = {
     'user': 'yohann',
-    'password': '5haEjOOLeNUXgwqycjuj',
-    'host': '0.0.0.0',
+    'password': os.environ.get('DB_PASSWORD'),
+    'host': 'clement-appart.ddns.net',
+    'port': 3306,
     'database': 'objura_bdd'
 }
 
