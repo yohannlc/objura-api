@@ -743,8 +743,12 @@ def create_disparition():
               type: integer
             room_id:
               type: integer
-            video_id:
-              type: integer
+            video_date:
+              type: string
+            video_length:
+              type: string
+            video_link:
+              type: string
 
     responses:
       200:
@@ -766,12 +770,14 @@ def create_disparition():
     disparition_object = request.json['disparition_object']
     camera_id = request.json['camera_id']
     room_id = request.json['room_id']
-    video_id = request.json['video_id']
+    video_date = request.json['video_date']
+    video_length = request.json['video_length']
+    video_link = request.json['video_link']
 
     cursor.execute('INSERT INTO disparition (disparition_date, disparition_object_stolen, disparition_image_overview, disparition_object, camera_id, room_id) VALUES (%s, %s, %s, %s, %s, %s)', (disparition_date, disparition_object_stolen, disparition_image_overview, disparition_object, camera_id, room_id))
     conn.commit()
 
-    cursor.execute('INSERT INTO video (video_date, video_length, video_link, disparition_id) VALUES (%s, %s, %s, %s)', (disparition_date, '00:00:00', 'https://www.youtube.com', cursor.lastrowid))
+    cursor.execute('INSERT INTO video (video_date, video_length, video_link, disparition_id) VALUES (%s, %s, %s, %s)', (video_date, video_length, video_link, cursor.lastrowid))
     conn.commit()
 
     cursor.close()
