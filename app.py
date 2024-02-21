@@ -10,9 +10,9 @@ CORS(app)
 Swagger(app)
 
 db_config = {
-    'user': 'yohann',
-    'password': os.environ.get('DB_PASSWORD'),
-    'host': 'clement-appart.ddns.net',
+    'user': 'u743632769_yohann',
+    'password': 'o0sDF&3IuWHuUB2sB2WS',
+    'host': 'clementyziquel.fr',
     'port': 3306,
     'database': 'objura_bdd'
 }
