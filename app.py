@@ -22,7 +22,7 @@ db_config = {
     'password': os.environ.get('DB_PASSWORD'),
     'host': 'clementyziquel.fr',
     'port': 3306,
-    'database': 'objura_bdd'
+    'database': 'u743632769_objura_bdd'
 }
 
 # Route to get all users
