@@ -795,5 +795,43 @@ def create_disparition():
         'status': 'Disparition created successfully'
     })
 
+    #
+
+# Route to delete all disparitions (and videos associated)
+@app.route('/api/v1/delete_disparitions', methods=['DELETE'])
+def delete_disparitions():
+    """
+    Delete all disparitions
+
+    This endpoint deletes all disparitions in the system.
+
+    ---
+    responses:
+      200:
+        description: Disparitions deleted successfully
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              description: Status message
+    """
+    
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    
+    # DELETE videos and disparitions
+    cursor.execute('DELETE FROM video')
+    conn.commit()
+    cursor.execute('DELETE FROM disparition')
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return jsonify({
+        'status': 'Disparitions deleted successfully'
+    })
+
 if __name__ == '__main__':
     app.run(debug=True)
